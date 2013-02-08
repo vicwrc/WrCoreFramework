@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+       xmlns:context="http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+       xmlns:util="http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+       xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/aop/spring-aop-2.5.xsd/spring-spring-aop-2.5.xsd-3.1.1.RELEASE.xsd
+          http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/context/spring-context-2.5.xsd/spring-spring-context-2.5.xsd-3.1.1.RELEASE.xsd
+          http://www.springframework.org/schema/util/spring-util-2.5.xsd http://www.springframework.org/schema/util/spring-util-2.5.xsd/spring-spring-util-2.5.xsd-3.1.1.RELEASE.xsd
+">
+
+     <!-- web layer -->
+    <bean id="contentUrlFinder" class="org.wr.face.common.services.finders.ContentUrlFinder">
+        <property name="calculator" ref="nodeTypeCalculator"/>
+    </bean>
+    
+    <bean id="nodePathFinder" class="org.wr.face.common.services.finders.NodePathFinder">
+        <property name="provider" ref="commonNodeProvider"/>
+    </bean>
+    
+    <bean id="nodeFinder" class="org.wr.face.common.services.finders.NodeFinder"/>
+    <bean id="pageFinder" class="org.wr.face.common.services.finders.PageFinder"/>
+    
+    
+    <!-- parsers -->
+    <bean id="attributeWebToEntityBuilder" class="org.wr.face.common.builders.impl.AttributeWebToEntityBuilder"/>
+    
+</beans>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+       xmlns:context="http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+       xmlns:util="http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+       xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/aop/spring-aop-2.5.xsd/spring-spring-aop-2.5.xsd-3.1.1.RELEASE.xsd
+          http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/context/spring-context-2.5.xsd/spring-spring-context-2.5.xsd-3.1.1.RELEASE.xsd
+          http://www.springframework.org/schema/util/spring-util-2.5.xsd http://www.springframework.org/schema/util/spring-util-2.5.xsd/spring-spring-util-2.5.xsd-3.1.1.RELEASE.xsd
+">
+
+    
+    <bean id="metaCacheService" class="org.wr.neo4j.meta.cache.services.impl.MetaCacheServiceImpl" init-method="init">
+        <property name="manager" ref="dbManager"/>
+        <property name="factory" ref="builderFactory"/>
+    </bean>
+    
+    <bean id="builderFactory" class="org.wr.neo4j.meta.cache.builders.BuilderFactory">
+        <property name="builders">
+            <list>
+                <ref bean="folderBuilder"/>
+                <ref bean="attributeBuilder"/>
+                <ref bean="pageBuilder"/>
+                <ref bean="widgetBuilder"/>
+                <ref bean="objectTypeBuilder"/>                
+            </list>
+        </property>
+    </bean>
+    <bean id="folderBuilder" class="org.wr.neo4j.meta.cache.builders.impl.FolderBuilder">
+        <property name="provider" ref="commonNodeProvider"/>
+        <property name="builderFactory" ref="builderFactory"/>    
+    </bean>
+    <bean id="attributeBuilder" class="org.wr.neo4j.meta.cache.builders.impl.AttributeBuilder" parent="folderBuilder"/>
+    <bean id="pageBuilder"  class="org.wr.neo4j.meta.cache.builders.impl.PageBuilder" parent="folderBuilder"/>
+    <bean id="widgetBuilder" class="org.wr.neo4j.meta.cache.builders.impl.WidgetBuilder"  parent="folderBuilder"/>
+    <bean id="objectTypeBuilder" class="org.wr.neo4j.meta.cache.builders.impl.ObjectTypeBuilder"  parent="folderBuilder"/>
+        
+    <bean id="attributeService" class="org.wr.neo4j.meta.cache.services.impl.AttributeServiceImpl" init-method="init">
+        <property name="manager" ref="dbManager"/>
+        <property name="metaCacheService" ref="metaCacheService"/>
+        <property name="deleteNodeOperation" ref="deleteNodeOperation"/>  
+        <property name="relationshipOperation" ref="relationshipOperation"/>  
+        <property name="objectTypeService" ref="objectTypeService"/>
+    </bean>   
+    
+    <bean id="objectTypeService" class="org.wr.neo4j.meta.cache.services.impl.ObjectTypeServiceImpl" init-method="init">
+        <property name="manager" ref="dbManager"/>
+        <property name="deleteNodeOperation" ref="deleteNodeOperation"/>    
+        <property name="metaCacheService" ref="metaCacheService"/>
+    </bean>
+    
+    <bean id="pageService" class="org.wr.neo4j.meta.cache.services.impl.PageServiceImpl">
+        <property name="nodeTypeCalculator" ref="nodeTypeCalculator"/>
+        <property name="metaPages">
+            <map key-type="java.lang.String" value-type="java.util.List">
+                <entry key="ATTRIBUTE">
+                    <list value-type="org.wr.neo4j.meta.model.PageBean">
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="123"/>
+                            <constructor-arg  index="1" value="view"/>
+                            <constructor-arg  index="2" value="View Attribute"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="false"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="meta/attribute/view/index.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="124"/>
+                            <constructor-arg  index="1" value="edit"/>
+                            <constructor-arg  index="2" value="Edit Attribute"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value="bg-color-orange"/>
+                            <constructor-arg  index="5" value="objectType=ATTRIBUTE"/>
+                            <constructor-arg  index="6" value="false"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="meta/attribute/edit/index.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="125"/>
+                            <constructor-arg  index="1" value="create"/>
+                            <constructor-arg  index="2" value="Create Attribute"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.attribute.PersistAttributePageHandler"/>
+                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="true"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="meta/attribute/edit/index.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="126"/>
+                            <constructor-arg  index="1" value="submit"/>
+                            <constructor-arg  index="2" value="Update Attribute"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.attribute.PersistAttributePageHandler"/>
+                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="true"/> 
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
+                                </list>
+                            </constructor-arg>                           
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="127"/>
+                            <constructor-arg  index="1" value="tiles"/>
+                            <constructor-arg  index="2" value="Tiles"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value=""/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="true"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="widgets/tiles/index.jsp"/>
+                                        <!-- need to change url -->
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <!-- submit -->
+                        <!-- delete -->
+                    </list>    
+                </entry> 
+                <entry key="WIDGET">
+                    <list value-type="org.wr.neo4j.meta.model.PageBean">
+                    </list>
+                </entry> 
+                <entry key="OBJECT_TYPE">
+                    <list value-type="org.wr.neo4j.meta.model.PageBean">
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="123"/>
+                            <constructor-arg  index="1" value="view"/>
+                            <constructor-arg  index="2" value="View"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="false"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="widgets/childCloud.jsp"/>
+                                    </bean>
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="124"/>
+                                        <constructor-arg  index="1" value="meta/attribute/view/table/index.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="124"/>
+                            <constructor-arg  index="1" value="edit"/>
+                            <constructor-arg  index="2" value="Edit"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value="bg-color-orange"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="false"/>
+                            <constructor-arg  index="7">
+                                <!-- need to change url -->
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="widgets/childCloud.jsp"/>
+                                    </bean>
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="124"/>
+                                        <constructor-arg  index="1" value="meta/attribute/view/table/index.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.page.RedirectPageBean">
+                            <constructor-arg  index="0" value="126"/>
+                            <constructor-arg  index="1" value="create_attribute"/>
+                            <constructor-arg  index="2" value="New Attribute"/>
+                            <constructor-arg  index="3" value="bg-color-green"/>
+                            <constructor-arg  index="4" value=""/>
+                            <constructor-arg  index="5" value="false"/> 
+                            <constructor-arg  index="6">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
+                                </list>
+                            </constructor-arg>  
+                            <constructor-arg  index="7" value="'create.jsp?parentId=' + getId() + '&amp;' + 'objectType=ATTRIBUTE'"/>                         
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="125"/>
+                            <constructor-arg  index="1" value="tiles"/>
+                            <constructor-arg  index="2" value="Tiles"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value=""/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="true"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="widgets/tiles/index.jsp"/>
+                                        <!-- need to change url -->
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <!-- submit -->
+                        <!-- delete -->
+                        <!-- create children -->
+                    </list>
+                </entry> 
+                <entry key="FOLDER">
+                    <list value-type="org.wr.neo4j.meta.model.PageBean">
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="123"/>
+                            <constructor-arg  index="1" value="view"/>
+                            <constructor-arg  index="2" value="View"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="false"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="widgets/childCloud.jsp"/>
+                                    </bean>
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="124"/>
+                                        <constructor-arg  index="1" value="meta/attribute/view/table/index.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="124"/>
+                            <constructor-arg  index="1" value="edit"/>
+                            <constructor-arg  index="2" value="Edit"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value="bg-color-orange"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="false"/>
+                            <constructor-arg  index="7">
+                                <!-- need to change url -->
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="widgets/childCloud.jsp"/>
+                                    </bean>
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="124"/>
+                                        <constructor-arg  index="1" value="meta/attribute/view/table/index.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="124"/>
+                            <constructor-arg  index="1" value="tiles"/>
+                            <constructor-arg  index="2" value="Tiles"/>
+                            <constructor-arg  index="3" value=""/>
+                            <constructor-arg  index="4" value=""/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="true"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="widgets/tiles/index.jsp"/>
+                                        <!-- need to change url -->
+                                    </bean>
+                                </list>
+                            </constructor-arg>
+                        </bean>
+                        <!-- submit -->
+                        <!-- delete -->
+                        <!-- create children -->
+                    </list> 
+                </entry> 
+                <entry key="PAGE">
+                    <list value-type="org.wr.neo4j.meta.model.PageBean">
+                    </list>
+                </entry>
+            </map>
+        </property>    
+    </bean>
+        
+    
+    
+    <bean id="metaCacheController" class="org.wr.neo4j.meta.cache.MetaCacheController">
+        <property name="attributeService" ref="attributeService"/>
+        <property name="objectTypeService" ref="objectTypeService"/>
+        <property name="metaCacheService" ref="metaCacheService"/>
+        <property name="pageService" ref="pageService"/>
+    </bean>
+
+
+    <bean id="nodeTypeCalculator" class="org.wr.neo4j.meta.NodeTypeCalculator"/>
+    <bean id="pageHandlerRepository" class="org.wr.neo4j.meta.page.PageHandlerRepository"/>
+    
+</beans>

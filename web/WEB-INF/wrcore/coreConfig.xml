@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+       xmlns:context="http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+       xmlns:util="http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+       xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/aop/spring-aop-2.5.xsd/spring-spring-aop-2.5.xsd-3.1.1.RELEASE.xsd
+          http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/context/spring-context-2.5.xsd/spring-spring-context-2.5.xsd-3.1.1.RELEASE.xsd
+          http://www.springframework.org/schema/util/spring-util-2.5.xsd http://www.springframework.org/schema/util/spring-util-2.5.xsd/spring-spring-util-2.5.xsd-3.1.1.RELEASE.xsd
+">
+
+    <bean id="dbStartStopHandler" class="org.wr.neo4j.core.dbhandlers.dbinstance.impl.DefaultDbStartStopHandler"/>
+    
+    
+    <bean id="dbManager" class="org.wr.neo4j.core.Neo4jDBManager" init-method="open" destroy-method="close">
+        <constructor-arg index="0" value="neo4jdb" />
+        <constructor-arg index="1" value="neo4j.properties" />
+        <constructor-arg index="2" ref="dbStartStopHandler" />
+    </bean>
+
+    <bean id="transactionExecutor" class="org.wr.neo4j.core.Neo4jTransactionExecutor">
+        <constructor-arg index="0" ref="dbManager"/>
+    </bean>
+
+    <bean id="dbService" factory-bean="dbManager" factory-method="getDbService"/>
+
+    <bean id="executionEngine" class="org.neo4j.cypher.javacompat.ExecutionEngine">
+        <constructor-arg index="0" ref="dbService"/>
+    </bean>
+
+    <bean id="queryLauncher" class="org.wr.neo4j.core.Neo4jQueryLauncher">
+        <constructor-arg index="0" ref="executionEngine"/>
+    </bean>
+    
+    <!-- common operations -->
+    <bean id="deleteNodeOperation" class="org.wr.neo4j.core.operations.DeleteNodeOperation"/>
+    <bean id="commonNodeProvider" class="org.wr.neo4j.core.operations.CommonNodeProvider"/>
+    <bean id="relationshipOperation" class="org.wr.neo4j.core.operations.RelationshipOperation"/>
+    
+</beans>
