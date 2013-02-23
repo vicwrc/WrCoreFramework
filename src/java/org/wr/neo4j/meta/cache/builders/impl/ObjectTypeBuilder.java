@@ -1,6 +1,6 @@
 package org.wr.neo4j.meta.cache.builders.impl;
 
-import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.wr.neo4j.meta.MetaType;
 import org.wr.neo4j.meta.model.AttributeBean;
 import org.wr.neo4j.meta.model.BaseBean;
 import org.wr.neo4j.meta.model.ObjectTypeBean;
-import org.wr.neo4j.meta.model.PageBean;
+
 
 
 
@@ -30,18 +30,6 @@ public class ObjectTypeBuilder extends FolderBuilder{
     public ObjectTypeBean build(Neo4jTransaction tx, BaseBean parent, Node node){
         ObjectTypeBean bean = (ObjectTypeBean)super.build(tx, parent, node);
         
-        List<AttributeBean> parentAttrs;
-        List<PageBean> parentPages;
-        ObjectTypeBean parentOT = parent instanceof ObjectTypeBean?(ObjectTypeBean)parent:null;
-        if(null == parentOT){
-            parentAttrs = Collections.EMPTY_LIST;
-            parentPages = Collections.EMPTY_LIST;
-        }else{
-            parentAttrs = parentOT.getAllAttributes();
-            parentPages = parentOT.getAllPages();
-        }
-        bean.setParentAttributes(parentAttrs);
-        bean.setParentPages(parentPages);
         List<AttributeBean> attrs = new LinkedList<>();
         for(Relationship attrRel : node.getRelationships(BaseReationTypes.ATTRIBUTES)){
             Node attr = attrRel.getEndNode();
@@ -86,8 +74,7 @@ public class ObjectTypeBuilder extends FolderBuilder{
             }
         }
     }
-    
-    
+        
     @Override
     public boolean isAppropriate(Node node) {
         return MetaType.OBJECT_TYPE.equals(MetaType.valueOf((String)node.getProperty(MetaDataConstants.ALL_META_TYPE)));

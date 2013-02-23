@@ -12,9 +12,9 @@ import org.wr.utils.collections.WrCollections.FilterCondition;
  */
 public class ObjectTypeBean extends BaseBean {
 
-    protected List<AttributeBean> parentAttributes;
+    protected List<AttributeBean> allAttributes = null;
     protected List<AttributeBean> currentAttributes;
-    protected List<PageBean> parentPages;
+    protected List<PageBean> allPages = null;
     protected List<PageBean> currentPages;
 
     public ObjectTypeBean(long id) {
@@ -22,37 +22,31 @@ public class ObjectTypeBean extends BaseBean {
     }
 
     /* Attributes and Wigets*/
-    public List<AttributeBean> getParentAttributes() {
-        return Collections.unmodifiableList(parentAttributes);
-    }
-
     public List<AttributeBean> getCurrentAttributes() {
         return currentAttributes;
     }
 
     public void rebuildAttributes() {
         if (getParent() instanceof ObjectTypeBean) {
-            parentAttributes = ((ObjectTypeBean) getParent()).getAllAttributes();
+            allAttributes = ((ObjectTypeBean) getParent()).getAllAttributes();
+            allAttributes.addAll(currentAttributes);
         } else {
-            parentAttributes = Collections.EMPTY_LIST;
+            allAttributes = currentAttributes;
         }
     }
-    
-    public void rebuildAttributesRecursive(){
+
+    public void rebuildAttributesRecursive() {
         rebuildAttributes();
-        for( ObjectTypeBean child : getChildObjectTypes()){
+        for (ObjectTypeBean child : getChildObjectTypes()) {
             child.rebuildAttributesRecursive();
         }
     }
 
     public List<AttributeBean> getAllAttributes() {
-        List<AttributeBean> result = new LinkedList<>(currentAttributes);
-        result.addAll(parentAttributes);
-        return Collections.unmodifiableList(result);
-    }
-
-    public List<PageBean> getParentPages() {
-        return Collections.unmodifiableList(parentPages);
+        if (null == allAttributes) {
+            rebuildAttributes();
+        }
+        return Collections.unmodifiableList(allAttributes);
     }
 
     public List<PageBean> getCurrentPages() {
@@ -64,27 +58,34 @@ public class ObjectTypeBean extends BaseBean {
         }));
     }
 
-    public List<PageBean> getAllPages() {
-        List<PageBean> result = new LinkedList<>(currentPages);
-        result.addAll(WrCollections.<PageBean>filter(parentPages, new FilterCondition<PageBean>() {
+    public void rebuildPages() {
+        allPages = new LinkedList<>(currentPages);
+        List<PageBean> parentPages = (getParent() instanceof ObjectTypeBean)
+                ? ((ObjectTypeBean) getParent()).getAllPages() : Collections.EMPTY_LIST;
+        allPages.addAll(WrCollections.<PageBean>filter(parentPages, new FilterCondition<PageBean>() {
             @Override
             public boolean isAppropriate(PageBean element) {
                 return element.isExtendable();
             }
         }));
-        return Collections.unmodifiableList(result);
     }
 
-    public void setParentAttributes(List<AttributeBean> parentAttributes) {
-        this.parentAttributes = parentAttributes;
+    public void rebuildPagesRecursive() {
+        rebuildPages();
+        for (ObjectTypeBean child : getChildObjectTypes()) {
+            child.rebuildPagesRecursive();
+        }
+    }
+
+    public List<PageBean> getAllPages() {
+        if (null == allPages) {
+            rebuildPages();
+        }
+        return Collections.unmodifiableList(allPages);
     }
 
     public void setCurrentAttributes(List<AttributeBean> currentAttributes) {
         this.currentAttributes = currentAttributes;
-    }
-
-    public void setParentPages(List<PageBean> parentPages) {
-        this.parentPages = parentPages;
     }
 
     public void setCurrentPages(List<PageBean> currentPages) {

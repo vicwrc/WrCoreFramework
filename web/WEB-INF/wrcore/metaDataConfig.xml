@@ -140,7 +140,6 @@
                                 </list>
                             </constructor-arg>
                         </bean>
-                        <!-- submit -->
                         <!-- delete -->
                     </list>    
                 </entry> 
@@ -162,12 +161,16 @@
                                 <list value-type="org.wr.neo4j.meta.model.WidgetBean">
                                     <bean class="org.wr.neo4j.meta.model.WidgetBean">
                                         <constructor-arg  index="0" value="123"/>
-                                        <constructor-arg  index="1" value="widgets/childCloud.jsp"/>
+                                        <constructor-arg  index="1" value="meta/objecttype/viewattrs.jsp"/>
                                     </bean>
                                     <bean class="org.wr.neo4j.meta.model.WidgetBean">
                                         <constructor-arg  index="0" value="124"/>
                                         <constructor-arg  index="1" value="meta/attribute/view/table/index.jsp"/>
                                     </bean>
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="meta/objecttype/children.jsp"/>
+                                    </bean>                                   
                                 </list>
                             </constructor-arg>
                         </bean>
@@ -184,12 +187,17 @@
                                 <list value-type="org.wr.neo4j.meta.model.WidgetBean">
                                     <bean class="org.wr.neo4j.meta.model.WidgetBean">
                                         <constructor-arg  index="0" value="123"/>
-                                        <constructor-arg  index="1" value="widgets/childCloud.jsp"/>
+                                        <constructor-arg  index="1" value="meta/objecttype/editattrs.jsp"/>
                                     </bean>
                                     <bean class="org.wr.neo4j.meta.model.WidgetBean">
                                         <constructor-arg  index="0" value="124"/>
                                         <constructor-arg  index="1" value="meta/attribute/view/table/index.jsp"/>
                                     </bean>
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="meta/objecttype/children.jsp"/>
+                                    </bean>
+                                    
                                 </list>
                             </constructor-arg>
                         </bean>
@@ -205,6 +213,23 @@
                                 </list>
                             </constructor-arg>  
                             <constructor-arg  index="7" value="'create.jsp?parentId=' + getId() + '&amp;' + 'objectType=ATTRIBUTE'"/>                         
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="125"/>
+                            <constructor-arg  index="1" value="create"/>
+                            <constructor-arg  index="2" value="Create Object Type"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.objecttype.PersistObjectTypePageHandler"/>
+                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="true"/>
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">
+                                    <bean class="org.wr.neo4j.meta.model.WidgetBean">
+                                        <constructor-arg  index="0" value="123"/>
+                                        <constructor-arg  index="1" value="meta/objecttype/editattrs.jsp"/>
+                                    </bean>
+                                </list>
+                            </constructor-arg>
                         </bean>
                         <bean class="org.wr.neo4j.meta.model.PageBean">
                             <constructor-arg  index="0" value="125"/>
