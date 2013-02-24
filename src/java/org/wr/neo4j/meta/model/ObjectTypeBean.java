@@ -13,9 +13,9 @@ import org.wr.utils.collections.WrCollections.FilterCondition;
 public class ObjectTypeBean extends BaseBean {
 
     protected List<AttributeBean> allAttributes = null;
-    protected List<AttributeBean> currentAttributes;
+    protected List<AttributeBean> currentAttributes = new LinkedList<>();
     protected List<PageBean> allPages = null;
-    protected List<PageBean> currentPages;
+    protected List<PageBean> currentPages = new LinkedList<>();
 
     public ObjectTypeBean(long id) {
         super(id);
@@ -28,7 +28,7 @@ public class ObjectTypeBean extends BaseBean {
 
     public void rebuildAttributes() {
         if (getParent() instanceof ObjectTypeBean) {
-            allAttributes = ((ObjectTypeBean) getParent()).getAllAttributes();
+            allAttributes = new LinkedList<>(((ObjectTypeBean) getParent()).getAllAttributes());
             allAttributes.addAll(currentAttributes);
         } else {
             allAttributes = currentAttributes;
@@ -99,5 +99,20 @@ public class ObjectTypeBean extends BaseBean {
                 return (element instanceof ObjectTypeBean);
             }
         }));
+    }
+
+    @Override
+    public void remove() {
+        super.remove();
+        removeAttributeAssociationRecursively();
+    }
+    
+    protected void removeAttributeAssociationRecursively() {
+        for (AttributeBean attr : getAllAttributes()) {
+            attr.getObjectTypes().remove(this);
+        }
+        for (ObjectTypeBean ot : this.getChildObjectTypes()) {
+            ot.removeAttributeAssociationRecursively();
+        }
     }
 }

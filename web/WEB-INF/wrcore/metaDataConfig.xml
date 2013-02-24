@@ -50,6 +50,7 @@
         <property name="manager" ref="dbManager"/>
         <property name="deleteNodeOperation" ref="deleteNodeOperation"/>    
         <property name="metaCacheService" ref="metaCacheService"/>
+        <property name="relationshipOperation" ref="relationshipOperation"/>
     </bean>
     
     <bean id="pageService" class="org.wr.neo4j.meta.cache.services.impl.PageServiceImpl">
@@ -63,7 +64,7 @@
                             <constructor-arg  index="1" value="view"/>
                             <constructor-arg  index="2" value="View Attribute"/>
                             <constructor-arg  index="3" value=""/>
-                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="4" value="bg-color-blue"/>
                             <constructor-arg  index="5" value=""/>
                             <constructor-arg  index="6" value="false"/>
                             <constructor-arg  index="7">
@@ -141,6 +142,19 @@
                             </constructor-arg>
                         </bean>
                         <!-- delete -->
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="126"/>
+                            <constructor-arg  index="1" value="delete"/>
+                            <constructor-arg  index="2" value="Delete"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.attribute.DeleteAttributePageHandler"/>
+                            <constructor-arg  index="4" value="bg-color-red"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="false"/> 
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
+                                </list>
+                            </constructor-arg>                           
+                        </bean>
                     </list>    
                 </entry> 
                 <entry key="WIDGET">
@@ -154,7 +168,7 @@
                             <constructor-arg  index="1" value="view"/>
                             <constructor-arg  index="2" value="View"/>
                             <constructor-arg  index="3" value=""/>
-                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="4" value="bg-color-blue"/>
                             <constructor-arg  index="5" value=""/>
                             <constructor-arg  index="6" value="false"/>
                             <constructor-arg  index="7">
@@ -201,19 +215,6 @@
                                 </list>
                             </constructor-arg>
                         </bean>
-                        <bean class="org.wr.neo4j.meta.model.page.RedirectPageBean">
-                            <constructor-arg  index="0" value="126"/>
-                            <constructor-arg  index="1" value="create_attribute"/>
-                            <constructor-arg  index="2" value="New Attribute"/>
-                            <constructor-arg  index="3" value="bg-color-green"/>
-                            <constructor-arg  index="4" value=""/>
-                            <constructor-arg  index="5" value="false"/> 
-                            <constructor-arg  index="6">
-                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
-                                </list>
-                            </constructor-arg>  
-                            <constructor-arg  index="7" value="'create.jsp?parentId=' + getId() + '&amp;' + 'objectType=ATTRIBUTE'"/>                         
-                        </bean>
                         <bean class="org.wr.neo4j.meta.model.PageBean">
                             <constructor-arg  index="0" value="125"/>
                             <constructor-arg  index="1" value="create"/>
@@ -230,6 +231,19 @@
                                     </bean>
                                 </list>
                             </constructor-arg>
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="126"/>
+                            <constructor-arg  index="1" value="submit"/>
+                            <constructor-arg  index="2" value="Update ObjectType"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.objecttype.PersistObjectTypePageHandler"/>
+                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="true"/> 
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
+                                </list>
+                            </constructor-arg>                           
                         </bean>
                         <bean class="org.wr.neo4j.meta.model.PageBean">
                             <constructor-arg  index="0" value="125"/>
@@ -249,9 +263,48 @@
                                 </list>
                             </constructor-arg>
                         </bean>
-                        <!-- submit -->
-                        <!-- delete -->
+                        
                         <!-- create children -->
+                        <bean class="org.wr.neo4j.meta.model.page.RedirectPageBean">
+                            <constructor-arg  index="0" value="126"/>
+                            <constructor-arg  index="1" value="create_attribute"/>
+                            <constructor-arg  index="2" value="New Attribute"/>
+                            <constructor-arg  index="3" value="bg-color-green"/>
+                            <constructor-arg  index="4" value=""/>
+                            <constructor-arg  index="5" value="false"/> 
+                            <constructor-arg  index="6">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
+                                </list>
+                            </constructor-arg>  
+                            <constructor-arg  index="7" value="'create.jsp?parentId=' + getId() + '&amp;' + 'objectType=ATTRIBUTE'"/>                         
+                        </bean>
+                        <bean class="org.wr.neo4j.meta.model.page.RedirectPageBean">
+                            <constructor-arg  index="0" value="126"/>
+                            <constructor-arg  index="1" value="create_object_type"/>
+                            <constructor-arg  index="2" value="New Object Type"/>
+                            <constructor-arg  index="3" value="bg-color-green"/>
+                            <constructor-arg  index="4" value=""/>
+                            <constructor-arg  index="5" value="false"/> 
+                            <constructor-arg  index="6">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
+                                </list>
+                            </constructor-arg>  
+                            <constructor-arg  index="7" value="'create.jsp?parentId=' + getId() + '&amp;' + 'objectType=OBJECT_TYPE'"/>                         
+                        </bean>
+                        <!-- delete -->
+                        <bean class="org.wr.neo4j.meta.model.PageBean">
+                            <constructor-arg  index="0" value="126"/>
+                            <constructor-arg  index="1" value="delete"/>
+                            <constructor-arg  index="2" value="Delete"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.objecttype.DeleteObjectTypePageHandler"/>
+                            <constructor-arg  index="4" value="bg-color-red"/>
+                            <constructor-arg  index="5" value=""/>
+                            <constructor-arg  index="6" value="false"/> 
+                            <constructor-arg  index="7">
+                                <list value-type="org.wr.neo4j.meta.model.WidgetBean">                                    
+                                </list>
+                            </constructor-arg>                           
+                        </bean>
                     </list>
                 </entry> 
                 <entry key="FOLDER">
@@ -261,7 +314,7 @@
                             <constructor-arg  index="1" value="view"/>
                             <constructor-arg  index="2" value="View"/>
                             <constructor-arg  index="3" value=""/>
-                            <constructor-arg  index="4" value="bg-color-green"/>
+                            <constructor-arg  index="4" value="bg-color-blue"/>
                             <constructor-arg  index="5" value=""/>
                             <constructor-arg  index="6" value="false"/>
                             <constructor-arg  index="7">

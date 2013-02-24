@@ -8,7 +8,7 @@ import org.wr.neo4j.meta.model.PageBean;
  *
  * @author vorontsov
  */
-public interface PageService {
+public interface PageService extends MetadataPersistenceService<PageBean>{
     
     List<PageBean> getPages(Node object, Node user);
     
@@ -18,7 +18,4 @@ public interface PageService {
     
     PageBean getCreatePage(String objectType, Node user);
     
-    PageBean delete(long id);
-    
-    void persist(PageBean bean);
 }

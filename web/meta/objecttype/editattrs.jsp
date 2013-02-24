@@ -24,7 +24,8 @@
             id = Long.parseLong(nodeid); 
             ObjectTypeService service = context.getBean(ObjectTypeService.class);
             bean = service.getById(id);
-         } else {
+         } 
+         if(null == bean) {
             bean = new ObjectTypeBean(-1);
          }
          

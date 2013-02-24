@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 import org.apache.commons.lang.StringUtils;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.NotFoundException;
 import org.springframework.web.context.WebApplicationContext;
 import org.wr.face.common.services.finders.NodeFinder;
 import org.wr.face.common.services.finders.PageFinder;
@@ -39,14 +40,24 @@ public class CommonWebPageBuilder {
         node = nodeFinder.getNode(request);
         pageBean = pageFinder.getPage(node, request);
     }
-    
+
     public void initPage() {
         if (pageBean != null) {
             PageHandlerRepository pageHandlerRepository = context.getBean(PageHandlerRepository.class);
             PageHandler handler = pageHandlerRepository.get(pageBean.getProcessClass());
             if (handler != null) {
                 handler.process(request, response);
-            }            
+            }
+            checkProcessable();
+        }
+    }
+
+    protected void checkProcessable() {
+        try {
+            node.getProperty("name");
+        } catch (NotFoundException e) {
+            node = null;
+            pageBean = null;
         }
     }
 
@@ -57,8 +68,8 @@ public class CommonWebPageBuilder {
     public PageBean getPageBean() {
         return pageBean;
     }
-    
-    public void renderWidgets() throws IOException, ServletException{
+
+    public void renderWidgets() throws IOException, ServletException {
         if (null != pageBean) {
             for (WidgetBean widget : pageBean.getWidgets()) {
                 org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response,
@@ -82,6 +93,4 @@ public class CommonWebPageBuilder {
     public WebApplicationContext getContext() {
         return context;
     }
-    
-    
 }

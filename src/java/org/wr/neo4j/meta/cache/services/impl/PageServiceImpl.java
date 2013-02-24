@@ -73,12 +73,22 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public PageBean delete(long id) {
+    public void remove(long id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void persist(PageBean bean) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<PageBean> getAll() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public PageBean getById(long id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

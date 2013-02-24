@@ -15,8 +15,10 @@
 
     if (!StringUtils.isEmpty(nodeid)) {
         id = Long.parseLong(nodeid);
+        System.out.println("id = "+ id);
         ObjectTypeService service = context.getBean(ObjectTypeService.class);
         ObjectTypeBean bean = service.getById(id);
+        System.out.println("bean = "+bean);
         if (null != bean) {
             out.print(new ObjectTypeTable(bean.getChildObjectTypes()).render());
             out.print(new PageTable(bean.getCurrentPages()).render());

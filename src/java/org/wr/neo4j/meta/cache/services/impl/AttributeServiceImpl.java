@@ -115,10 +115,8 @@ public class AttributeServiceImpl implements AttributeService {
         try {
             AttributeBean existBean = this.getById(bean.getId());
             if (null != existBean) {
-                System.out.println("existBean = "+existBean);
                 persist(bean, modify(bean, existBean));
             } else {
-                System.out.println("new bean = "+bean);
                 persist(bean, create(bean));
             }
             tx.success();

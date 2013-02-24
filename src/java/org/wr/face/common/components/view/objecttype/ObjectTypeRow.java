@@ -57,7 +57,6 @@ public class ObjectTypeRow extends WebComponent {
                         }
                     }, new StringBuilder()).toString()
                 + "</td>" +
-                "<td>" +getName(bean) + "</td>" +
                 "<td>" +bean.getOrder() + "</td>" +
                 "</tr>";
     }

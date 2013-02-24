@@ -31,10 +31,10 @@
                     <h1><%= pageBuilder.getNode() == null ? "not found" : pageBuilder.getNode().getProperty("name")%>
                         <small>
                             <jsp:include page="/widgets/common/navigationPath.jsp">
-                                <jsp:param name="id" value="<%=pageBuilder.getNode().getId()%>" />
+                                <jsp:param name="id" value="<%= pageBuilder.getNode() == null ? -1 :pageBuilder.getNode().getId()%>" />
                             </jsp:include> 
                         </small></h1>
-                    <a href="index.jsp?id=<%= pageBuilder.getNode().getId()%>&action=tiles" class="big page-back"><img src="images/large-tiles.png"></a> 
+                    <a href="index.jsp?id=<%= pageBuilder.getNode() == null ? -1 :pageBuilder.getNode().getId()%>&action=tiles" class="big page-back"><img src="images/large-tiles.png"></a> 
                 </div>
             </div>
 

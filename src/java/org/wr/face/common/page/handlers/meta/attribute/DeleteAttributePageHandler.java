@@ -5,21 +5,19 @@
 package org.wr.face.common.page.handlers.meta.attribute;
 
 import javax.servlet.http.HttpServletRequest;
-import org.wr.face.common.builders.impl.AttributeWebToEntityBuilder;
-import org.wr.face.common.page.handlers.meta.PersistMetaPageHandler;
+import org.wr.face.common.page.handlers.meta.DeleteMetaPageHandler;
 import org.wr.neo4j.meta.cache.services.AttributeService;
+import org.wr.neo4j.meta.model.AttributeBean;
 
 /**
  *
- * @author vorontsov
+ * @author Vorontsov
  */
-public class PersistAttributePageHandler<AttributeBean> extends PersistMetaPageHandler {
+public class DeleteAttributePageHandler extends DeleteMetaPageHandler<AttributeBean>{
 
     @Override
     protected void initModels(HttpServletRequest request) {
-        setBuilder(this.getContext(request).getBean(AttributeWebToEntityBuilder.class));
         setService(this.getContext(request).getBean(AttributeService.class));
     }
-
     
 }

@@ -4,6 +4,7 @@
  */
 package org.wr.neo4j.meta.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class BaseBean {
     protected String name;
     protected long order = 0;
     protected BaseBean parent;
-    protected List<BaseBean> children;
+    protected List<BaseBean> children = new LinkedList<>();
 
     public BaseBean(long id) {
         this.id = id;
@@ -74,10 +75,14 @@ public class BaseBean {
         return null;
     }
 
+    public void remove() {
+        if (null != getParent()) {
+            getParent().getChildren().remove(this);
+        }
+    }
+
     @Override
     public String toString() {
         return "BaseBean{" + "id=" + id + ", name=" + name + ", order=" + order + '}';
     }
-    
-    
 }

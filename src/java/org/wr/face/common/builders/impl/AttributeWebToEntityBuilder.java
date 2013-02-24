@@ -5,19 +5,18 @@
 package org.wr.face.common.builders.impl;
 
 import javax.servlet.http.HttpServletRequest;
-import org.wr.face.common.WebSpringAware;
+import org.wr.face.common.builders.AbstractWebToEntityBuilder;
 import org.wr.face.common.builders.WebToEntityBuilder;
 import org.wr.face.servlet.ParamExtendServletRequestWrapper;
 import org.wr.face.servlet.ParamExtendServletRequestWrapper.ValueParser;
 import org.wr.neo4j.meta.attribute.AttributeType;
 import org.wr.neo4j.meta.model.AttributeBean;
-import org.wr.neo4j.meta.model.BaseBean;
 
 /**
  *
  * @author vorontsov
  */
-public class AttributeWebToEntityBuilder extends WebSpringAware implements WebToEntityBuilder<AttributeBean>{
+public class AttributeWebToEntityBuilder extends AbstractWebToEntityBuilder implements WebToEntityBuilder<AttributeBean>{
 
     @Override
     public AttributeBean build(HttpServletRequest request) {
@@ -42,14 +41,6 @@ public class AttributeWebToEntityBuilder extends WebSpringAware implements WebTo
             return null;
         }
         return new AttributeBean(id);
-    }
-    
-    protected BaseBean getParent(ParamExtendServletRequestWrapper wrapper){
-        Long id = wrapper.getParameter("parentId", Long.class);
-        if(null == id){
-            return null;
-        }
-        return new BaseBean(id);
     }
     
     protected ParamExtendServletRequestWrapper createWrapper(HttpServletRequest request){

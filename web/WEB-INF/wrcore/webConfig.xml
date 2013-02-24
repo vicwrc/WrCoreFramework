@@ -27,5 +27,6 @@
     
     <!-- parsers -->
     <bean id="attributeWebToEntityBuilder" class="org.wr.face.common.builders.impl.AttributeWebToEntityBuilder"/>
+    <bean id="objectTypeWebToEntityBuilder" class="org.wr.face.common.builders.impl.ObjectTypeWebToEntityBuilder"/>
     
 </beans>
