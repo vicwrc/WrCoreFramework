@@ -10,7 +10,6 @@ import org.wr.neo4j.meta.MetaDataConstants;
 import org.wr.neo4j.meta.MetaType;
 import org.wr.neo4j.meta.model.BaseBean;
 import org.wr.neo4j.meta.model.PageBean;
-import org.wr.neo4j.meta.model.page.RedirectPageBean;
 
 
 /**
@@ -33,11 +32,6 @@ public class PageBuilder extends FolderBuilder{
     
     @Override
     protected PageBean create(Neo4jTransaction tx, BaseBean parent, Node node) {
-        if(RedirectPageBean.PROCESS_CLASS_NAME.equals(node.getProperty("processClass"))){
-            RedirectPageBean pageBean = new RedirectPageBean(node.getId(),(String)node.getProperty("action"));
-            pageBean.setPageToRedirect((String)node.getProperty("pageToRedirect"));
-            return pageBean; 
-        }
         return new PageBean(node.getId(),(String)node.getProperty("action")); 
     }
     

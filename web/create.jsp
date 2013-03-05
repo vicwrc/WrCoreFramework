@@ -14,8 +14,11 @@
 
         <link href="css/modern.css" rel="stylesheet">
         <link href="css/modern-responsive.css" rel="stylesheet">
-        <link href="css/site.css" rel="stylesheet" type="text/css">
+        
         <link href="js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+         <link href="css/CalendarControl.css" rel="stylesheet" type="text/css">
+        <script src="js/CalendarControl.js" language="javascript"></script>
+        <script src="js/wrcore/validators.js"></script>
 
 
         <title>Wr Core main page</title>

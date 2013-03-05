@@ -71,22 +71,18 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
 
     @Override
     public void remove(long id) {
-        Neo4jTransaction tx = manager.createTransaction();
-        try {
+        try (Neo4jTransaction tx = manager.createTransaction()){
             ObjectTypeBean bean = getById(id);
             deleteNodeOperation.delete(manager.getDbService().getNodeById(id));
             bean.remove();
             objectTypes.remove(id);
             tx.success();
-        } finally {
-            tx.finish();
-        }
+        } 
     }
 
     @Override
     public void persist(ObjectTypeBean bean) {
-        Neo4jTransaction tx = manager.createTransaction();
-        try {
+        try (Neo4jTransaction tx = manager.createTransaction()){
             ObjectTypeBean existBean = this.getById(bean.getId());
             if (null != existBean) {
                 persist(bean, modify(bean, existBean));
@@ -94,9 +90,7 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
                 persist(bean, create(bean));
             }
             tx.success();
-        } finally {
-            tx.finish();
-        }
+        } 
     }
 
     protected void persist(ObjectTypeBean bean, Node node) {

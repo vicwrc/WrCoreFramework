@@ -13,7 +13,7 @@ import org.neo4j.graphdb.Transaction;
  *
  * @author vorontsov
  */
-public class Neo4jTransaction implements Transaction {
+public class Neo4jTransaction implements Transaction,  AutoCloseable {
 
     private boolean active = true;
     private Transaction transaction;
@@ -61,6 +61,11 @@ public class Neo4jTransaction implements Transaction {
     @Override
     public Lock acquireReadLock(PropertyContainer pc) {
         return transaction.acquireReadLock(pc);
+    }
+
+    @Override
+    public void close() {
+        finish();
     }
 
 }

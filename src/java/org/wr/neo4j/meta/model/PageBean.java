@@ -14,6 +14,8 @@ public class PageBean extends BaseBean {
     private final String action;
     private boolean extendable = true;
     private boolean hidden = false;
+    private String pathToImage;
+    private String tileGroup;
     private String processClass;
     private String color;
     private String extraParams;
@@ -25,7 +27,18 @@ public class PageBean extends BaseBean {
     }
 
     // created for Spring
-    public PageBean(long id, String action, String name, String processClass, String color, String extraParams, boolean hidden, List<WidgetBean> widgets) {
+    public PageBean(
+            long id, 
+            String action, 
+            String name, 
+            String processClass, 
+            String color, 
+            String extraParams, 
+            boolean hidden, 
+            List<WidgetBean> widgets,
+            String pathToImage,
+            String tileGroup
+            ) {
         super(id);
         this.name = name;
         this.action = action;
@@ -34,6 +47,20 @@ public class PageBean extends BaseBean {
         this.extraParams = extraParams;
         this.hidden = hidden;
         this.widgets = widgets;
+        this.pathToImage = pathToImage;
+        this.tileGroup = tileGroup;
+    }
+    
+    public PageBean(
+            long id, 
+            String action, 
+            String name, 
+            String processClass, 
+            String color, 
+            String extraParams, 
+            boolean hidden, 
+            List<WidgetBean> widgets) {
+        this(id, action, name, processClass, color, extraParams, hidden, widgets, null, null);
     }
     
     
@@ -95,4 +122,22 @@ public class PageBean extends BaseBean {
 
         return keyValue;
     }
+
+    public String getPathToImage() {
+        return pathToImage;
+    }
+
+    public void setPathToImage(String pathToImage) {
+        this.pathToImage = pathToImage;
+    }
+
+    public String getTileGroup() {
+        return tileGroup;
+    }
+
+    public void setTileGroup(String tileGroup) {
+        this.tileGroup = tileGroup;
+    }
+    
+    
 }

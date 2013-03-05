@@ -9,8 +9,8 @@ import org.wr.neo4j.meta.model.PageBean;
  *
  * @author vorontsov
  */
-public class Tile extends WebComponent{
-    
+public class Tile extends WebComponent {
+
     private final PageBean page;
     private final Node node;
 
@@ -21,23 +21,45 @@ public class Tile extends WebComponent{
 
     @Override
     public String renderHtml() {
-        return "<div class=\"tile"+getColor()+"\" "+getJSAction()+">\n" +
-"                        <div class=\"tile-content\" >\n" +
-"                            "+page.getName()+"\n" +
-"                        </div>\n" +
-"                    </div>";
+        return "<div class=\"tile" + getColor() +getType() + "\" " + getJSAction() + ">\n"
+                + "                        <div class=\"tile-content\" >\n"
+                + "                            " + getContentValue() + "\n"
+                + "                        </div>\n"
+                + "<div class=\"brand\"> "
+                + "<span class=\"name\">" + page.getName() + "</span> "
+                + "</div>"
+                + "                    </div>";
     }
-    
-    protected String getColor(){
-        if(StringUtils.isEmpty(page.getColor())){
+
+    protected String getType() {
+        if (StringUtils.isEmpty(page.getPathToImage())) {
             return "";
-        }else{
-            return " "+page.getColor();
+        } else {
+            return " icon";
         }
     }
-    
-    protected String getJSAction(){
-        return "onClick=\"document.location.href = 'index.jsp?id="+node.getId()+"&action="+page.getAction()+
-                (StringUtils.isEmpty(page.getExtraParams())?"":"&"+page.getExtraParams())+"'\"";
+
+    protected String getContentValue() {
+        if (StringUtils.isEmpty(page.getPathToImage())) {
+            return  page.getName();
+        }
+        if (page.getPathToImage().contains("icon:")) {
+            return "<i class=\""+page.getPathToImage().substring(5) +"\"></i>";
+        } else {
+            return "<img src=\""+page.getPathToImage()+"\">";
+        }
+    }
+
+    protected String getColor() {
+        if (StringUtils.isEmpty(page.getColor())) {
+            return "";
+        } else {
+            return " " + page.getColor();
+        }
+    }
+
+    protected String getJSAction() {
+        return "onClick=\"document.location.href = 'index.jsp?id=" + node.getId() + "&action=" + page.getAction()
+                + (StringUtils.isEmpty(page.getExtraParams()) ? "" : "&" + page.getExtraParams()) + "'\"";
     }
 }

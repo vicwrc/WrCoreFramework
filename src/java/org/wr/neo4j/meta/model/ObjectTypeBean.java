@@ -1,6 +1,7 @@
 package org.wr.neo4j.meta.model;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import org.wr.utils.collections.WrCollections;
@@ -33,6 +34,13 @@ public class ObjectTypeBean extends BaseBean {
         } else {
             allAttributes = currentAttributes;
         }
+        Collections.sort(allAttributes,
+                new Comparator<AttributeBean>() {
+                    @Override
+                    public int compare(AttributeBean o1, AttributeBean o2) {
+                        return (int) (o1.getOrder() - o2.getOrder());
+                    }
+                });
     }
 
     public void rebuildAttributesRecursive() {
@@ -106,7 +114,7 @@ public class ObjectTypeBean extends BaseBean {
         super.remove();
         removeAttributeAssociationRecursively();
     }
-    
+
     protected void removeAttributeAssociationRecursively() {
         for (AttributeBean attr : getAllAttributes()) {
             attr.getObjectTypes().remove(this);

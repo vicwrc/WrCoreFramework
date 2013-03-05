@@ -9,8 +9,8 @@ import java.util.Map;
 import org.neo4j.graphdb.Node;
 import org.wr.neo4j.meta.MetaType;
 import org.wr.neo4j.meta.NodeTypeCalculator;
-import org.wr.neo4j.meta.model.PageBean;
 import org.wr.neo4j.meta.cache.services.PageService;
+import org.wr.neo4j.meta.model.PageBean;
 
 /**
  *
@@ -52,9 +52,9 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public PageBean getCreatePage(String objectType, Node user) {
-        MetaType type = MetaType.valueOf(objectType);
-        if (null != type && !MetaType.REGULAR.equals(type)) {
-            List<PageBean> pages = metaPages.get(objectType);
+        MetaType type = getMetaType(objectType);
+        if (null != type /*&& !MetaType.REGULAR.equals(type)*/) {
+            List<PageBean> pages = metaPages.get(type.toString());
             if (null != pages) {
                 for (PageBean page : pages) {
                     if (CREATE_PAGE.equals(page.getAction())) {
@@ -65,6 +65,14 @@ public class PageServiceImpl implements PageService {
         }
         // todo : add logic here later
         return null;
+    }
+    
+    protected MetaType getMetaType(String objectType){
+        try {
+            return MetaType.valueOf(objectType);
+        } catch (IllegalArgumentException e) {
+            return MetaType.REGULAR;
+        }
     }
 
     @Override

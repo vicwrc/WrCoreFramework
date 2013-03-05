@@ -82,8 +82,7 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public void remove(long id) {
-        Neo4jTransaction tx = manager.createTransaction();
-        try {
+        try (Neo4jTransaction tx = manager.createTransaction()){
             AttributeBean bean = getById(id);
             deleteNodeOperation.delete(manager.getDbService().getNodeById(id));
             attributes.remove(id);
@@ -93,9 +92,7 @@ public class AttributeServiceImpl implements AttributeService {
                 ot.rebuildAttributesRecursive();
             }
             tx.success();
-        } finally {
-            tx.finish();
-        }
+        } 
     }
 
     @Override
@@ -111,8 +108,7 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public void persist(AttributeBean bean) {
-        Neo4jTransaction tx = manager.createTransaction();
-        try {
+        try (Neo4jTransaction tx = manager.createTransaction()){
             AttributeBean existBean = this.getById(bean.getId());
             if (null != existBean) {
                 persist(bean, modify(bean, existBean));
@@ -120,9 +116,7 @@ public class AttributeServiceImpl implements AttributeService {
                 persist(bean, create(bean));
             }
             tx.success();
-        } finally {
-            tx.finish();
-        }
+        } 
     }
 
     protected void persist(AttributeBean bean, Node node) {

@@ -23,9 +23,23 @@ public class RedirectPageBean extends PageBean{
         this.setProcessClass(PROCESS_CLASS_NAME);
     }
 
-    public RedirectPageBean(long id, String action, String name, String color, String extraParams, boolean hidden, List<WidgetBean> widgets,String pageToRedirect) {
-        super(id, action, name, PROCESS_CLASS_NAME, color, extraParams, hidden, widgets);
+    public RedirectPageBean(
+            long id, 
+            String action, 
+            String name, 
+            String color, 
+            String extraParams, 
+            boolean hidden, 
+            List<WidgetBean> widgets,
+            String pageToRedirect,
+            String pathToImage,
+            String tileGroup) {
+        super(id, action, name, PROCESS_CLASS_NAME, color, extraParams, hidden, widgets, pathToImage, tileGroup);
         this.pageToRedirect = pageToRedirect;
+    }
+    
+    public RedirectPageBean(long id, String action, String name, String color, String extraParams, boolean hidden, List<WidgetBean> widgets,String pageToRedirect) {
+        this(id, action, name, color, extraParams, hidden, widgets,pageToRedirect, null,null);
     }
 
     public String getPageToRedirect() {

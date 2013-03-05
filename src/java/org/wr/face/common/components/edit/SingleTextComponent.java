@@ -45,8 +45,12 @@ public class SingleTextComponent extends InputComponent {
     @Override
     public String renderHtml() {
         return "     <div class=\"input-control text\"> "
-                + "<input type=\"text\" name=\"" + getId() + "\" value=\""+getDefaultValue()+"\"  placeholder=\""+hint+"\"/>  "
+                + "<input type=\"text\" name=\"" + getId() + "\" value=\""+getDefaultValue()+"\"  placeholder=\""+hint+"\" "+getExtraAttributes()+" />  "
                + "</div>";
+    }
+
+    protected String getExtraAttributes() {
+        return "";
     }
     
     
