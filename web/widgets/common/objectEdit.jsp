@@ -1,4 +1,5 @@
-<%@page import="org.wr.face.common.components.widgets.common.EditObjectWidget"%>
+
+<%@page import="org.wr.face.common.widgets.common.EditObjectWidget"%>
 <%@page import="org.wr.neo4j.core.operations.CommonNodeProvider"%>
 <%@page import="org.wr.neo4j.core.operations.CommonNodeProvider"%>
 <%@page import="org.wr.neo4j.core.Neo4jDBManager"%>

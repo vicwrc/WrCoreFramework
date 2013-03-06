@@ -13,6 +13,7 @@ import org.wr.utils.collections.WrCollections;
 /**
  *
  * @author vorontsov
+ * // todo : transfer to widgets
  */
 public class ChildCloud extends WebComponent {
 

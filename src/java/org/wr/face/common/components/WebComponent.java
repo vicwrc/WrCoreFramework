@@ -6,13 +6,13 @@ package org.wr.face.common.components;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.WebApplicationContext;
-import org.wr.face.common.WebSpringAware;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  *
  * @author vorontsov
  */
-public abstract class WebComponent extends WebSpringAware{
+public abstract class WebComponent {
     
     protected boolean singleRenderable = true;
     protected HttpServletRequest request;
@@ -23,7 +23,7 @@ public abstract class WebComponent extends WebSpringAware{
     }
 
     public WebApplicationContext getContext(){
-        return getContext(request);
+        return WebApplicationContextUtils.getWebApplicationContext(request.getServletContext()) ;
     }
 
     public WebComponent setRequest(HttpServletRequest request) {

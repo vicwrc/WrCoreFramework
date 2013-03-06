@@ -19,11 +19,12 @@
          <link href="css/CalendarControl.css" rel="stylesheet" type="text/css">
         <script src="js/CalendarControl.js" language="javascript"></script>
         <script src="js/wrcore/validators.js"></script>
+        <script src="js/wrcore/mulInput.js"></script>
 
 
         <title>Wr Core main page</title>
     </head>
-    <body class="modern-ui" onload="prettyPrint()">
+    <body class="modern-ui" >
 
         <div class="page">
 

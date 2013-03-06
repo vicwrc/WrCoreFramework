@@ -1,5 +1,5 @@
 
-<%@page import="org.wr.face.common.components.widgets.common.ViewObjectWidget"%>
+<%@page import="org.wr.face.common.widgets.common.ViewObjectWidget"%>
 <%@page import="org.wr.neo4j.core.operations.CommonNodeProvider"%>
 <%@page import="org.wr.neo4j.core.Neo4jDBManager"%>
 <%@page import="org.neo4j.graphdb.Node"%>

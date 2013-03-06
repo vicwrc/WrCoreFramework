@@ -6,6 +6,7 @@ import org.wr.face.common.components.WebComponent;
  *
  * @author vicwrc
  */
+@Deprecated
 public class TextWebComponent extends WebComponent {
 
     private final String name;

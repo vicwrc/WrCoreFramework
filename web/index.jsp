@@ -21,6 +21,7 @@
         <script src="js/modern/start-menu.js"></script>
         <script src="js/modern/tile-drag.js"></script>
         <script src="js/wrcore/validators.js"></script>
+        <script src="js/wrcore/mulInput.js"></script>
 
 
         <title>Wr Core main page</title>
