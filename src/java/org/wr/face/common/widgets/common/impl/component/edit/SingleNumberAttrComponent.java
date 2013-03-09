@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.wr.face.common.widgets.common.impl.editcomp;
+package org.wr.face.common.widgets.common.impl.component.edit;
 
 import org.neo4j.graphdb.Node;
 import org.wr.face.common.components.edit.input.SingleNumberComponent;
-import org.wr.face.common.widgets.common.impl.AttrIdCreator;
+import org.wr.face.common.widgets.common.impl.component.AttrIdCreator;
 import org.wr.neo4j.meta.model.AttributeBean;
 
 /**

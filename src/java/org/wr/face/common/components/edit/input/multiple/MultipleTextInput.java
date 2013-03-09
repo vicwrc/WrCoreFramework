@@ -20,13 +20,13 @@ public class MultipleTextInput extends MultipleInput{
     }
     
     public final void setListValues(Object[] listValues){
-        WrCollections.aggregate(listValues, new WrCollections.AggregateCondition<Object,Map<String,String>>(){
+        setListValues(WrCollections.aggregate(listValues, new WrCollections.AggregateCondition<Object,Map<String,String>>(){
 
             @Override
             public Map<String, String> aggregateItem(Object item, Map<String, String> currentResult) {
                 currentResult.put(String.valueOf(item), String.valueOf(item));
                 return currentResult;
             }
-        }, new HashMap<String,String>());
+        }, new HashMap<String,String>()));
     }
 }

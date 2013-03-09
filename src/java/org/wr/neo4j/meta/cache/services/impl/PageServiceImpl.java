@@ -33,9 +33,9 @@ public class PageServiceImpl implements PageService {
     @Override
     public List<PageBean> getPages(Node object, Node user) {
         MetaType type = nodeTypeCalculator.getType(object);
-        if (MetaType.REGULAR.equals(type)) {
+       /* if (MetaType.REGULAR.equals(type)) {
             return null; // todo : write logic here
-        }
+        }*/
 
         return metaPages.get(type.toString());
     }
@@ -98,5 +98,12 @@ public class PageServiceImpl implements PageService {
     @Override
     public PageBean getById(long id) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public PageBean getPage(String action, String objectType, Node user) {
+        MetaType type = getMetaType(objectType);
+        
+        return getPage(action, metaPages.get(type.toString()));
     }
 }

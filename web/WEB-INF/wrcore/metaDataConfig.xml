@@ -467,7 +467,7 @@
                             <constructor-arg  index="0" value="126"/>
                             <constructor-arg  index="1" value="submit"/>
                             <constructor-arg  index="2" value="Update Object"/>
-                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.attribute.PersistAttributePageHandler"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.common.PersistObjectPageHandler"/>
                             <constructor-arg  index="4" value="bg-color-green"/>
                             <constructor-arg  index="5" value=""/>
                             <constructor-arg  index="6" value="true"/> 
@@ -499,7 +499,7 @@
                             <constructor-arg  index="0" value="126"/>
                             <constructor-arg  index="1" value="delete"/>
                             <constructor-arg  index="2" value="Delete"/>
-                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.meta.attribute.DeleteAttributePageHandler"/>
+                            <constructor-arg  index="3" value="org.wr.face.common.page.handlers.common.DeleteObjectPageHandler"/>
                             <constructor-arg  index="4" value="bg-color-red"/>
                             <constructor-arg  index="5" value=""/>
                             <constructor-arg  index="6" value="false"/> 

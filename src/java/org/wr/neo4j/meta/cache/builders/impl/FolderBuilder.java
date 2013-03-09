@@ -12,9 +12,9 @@ import org.wr.neo4j.core.Neo4jTransaction;
 import org.wr.neo4j.core.operations.CommonNodeProvider;
 import org.wr.neo4j.meta.MetaDataConstants;
 import org.wr.neo4j.meta.MetaType;
-import org.wr.neo4j.meta.model.BaseBean;
 import org.wr.neo4j.meta.cache.builders.BuilderFactory;
 import org.wr.neo4j.meta.cache.builders.CommonBuilder;
+import org.wr.neo4j.meta.model.BaseBean;
 
 /**
  *

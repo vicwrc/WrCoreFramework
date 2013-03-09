@@ -6,6 +6,10 @@ package org.wr.face.common.widgets.common;
 
 import org.neo4j.graphdb.Node;
 import org.wr.face.common.components.NestedComponent;
+import org.wr.face.common.widgets.common.impl.ObjectParametersWidget;
+import org.wr.face.common.widgets.common.impl.ViewChildrenWidget;
+import org.wr.face.common.widgets.common.impl.ViewMulReferenceWidget;
+import org.wr.face.common.widgets.common.impl.component.componentfactory.ViewParameterComponentFactory;
 import org.wr.neo4j.meta.model.ObjectTypeBean;
 
 /**
@@ -20,6 +24,9 @@ public class ViewObjectWidget extends NestedComponent{
     public ViewObjectWidget(ObjectTypeBean objectType, Node node) {
         this.objectType = objectType;
         this.node = node;
+        addChild(new ObjectParametersWidget(objectType, node, new ViewParameterComponentFactory()));
+        addChild(new ViewMulReferenceWidget(objectType, node));
+        addChild(new ViewChildrenWidget(objectType, node));        
     }
     
     @Override

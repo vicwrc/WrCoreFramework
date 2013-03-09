@@ -16,6 +16,8 @@ public interface PageService extends MetadataPersistenceService<PageBean>{
     
     PageBean getPage(String action, Node object, Node user);
     
+    PageBean getPage(String action, String objectType, Node user);
+    
     PageBean getCreatePage(String objectType, Node user);
     
 }

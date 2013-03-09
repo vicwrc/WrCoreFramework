@@ -1,11 +1,11 @@
 
+<%@page import="org.wr.face.common.components.edit.input.SimpleListComponent"%>
+<%@page import="org.wr.face.common.components.edit.input.SingleTextComponent"%>
 <%@page import="org.wr.face.common.components.edit.HiddenField"%>
 <%@page import="org.wr.face.common.components.edit.Html5InputType"%>
 <%@page import="org.wr.neo4j.meta.attribute.AttributeType"%>
-<%@page import="org.wr.face.common.components.edit.SimpleListComponent"%>
 <%@page import="org.wr.face.common.components.view.NestedTableRow"%>
 <%@page import="org.wr.face.common.components.view.SimpleTableComponent"%>
-<%@page import="org.wr.face.common.components.edit.SingleTextComponent"%>
 <%@page import="org.wr.face.common.components.edit.Form"%>
 <%@page import="org.wr.neo4j.meta.model.BaseBean"%>
 <%@page import="org.wr.neo4j.meta.model.AttributeBean"%>
@@ -36,6 +36,8 @@
          out.print(new Form()
                  .addChild(new SimpleTableComponent()
                  .addChild(new NestedTableRow("Attribute name").addChild(new SingleTextComponent("name").setDefaultValue(bean.getName())))
+                 .addChild(new NestedTableRow("Public name").addChild(new SingleTextComponent("publicName").setDefaultValue(bean.getPublicName())))
+                 
                  .addChild(new NestedTableRow("Order").addChild(
                            new SingleTextComponent("order").setDefaultValue(String.valueOf(bean.getOrder())).setType(Html5InputType.NUMBER)
                  ))

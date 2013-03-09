@@ -25,6 +25,16 @@ public class RelationshipOperation {
         }
     }
     
+    public void setObjectType(Node node, Node ot) {
+        Relationship rel = node.getSingleRelationship(BaseReationTypes.OBJECT_TYPE, Direction.OUTGOING);
+        if (null == rel || null == rel.getEndNode()) {
+            node.createRelationshipTo(ot, BaseReationTypes.OBJECT_TYPE);
+        }else if (!ot.equals(rel.getEndNode())) {
+            rel.delete();
+            node.createRelationshipTo(ot, BaseReationTypes.OBJECT_TYPE);
+        }
+    }
+    
     public void setReferenceOTtoAttribute(Node ot, Node attribute){
         for(Relationship rel : ot.getRelationships(BaseReationTypes.ATTRIBUTES, Direction.OUTGOING)){
             if(rel.getEndNode().getId() == attribute.getId()){

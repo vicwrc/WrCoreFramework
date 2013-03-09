@@ -12,12 +12,12 @@ import org.wr.neo4j.core.operations.DeleteNodeOperation;
 import org.wr.neo4j.core.operations.RelationshipOperation;
 import org.wr.neo4j.meta.MetaDataConstants;
 import org.wr.neo4j.meta.MetaType;
-import org.wr.neo4j.meta.model.AttributeBean;
-import org.wr.neo4j.meta.model.BaseBean;
-import org.wr.neo4j.meta.model.ObjectTypeBean;
 import org.wr.neo4j.meta.cache.services.AttributeService;
 import org.wr.neo4j.meta.cache.services.MetaCacheService;
 import org.wr.neo4j.meta.cache.services.ObjectTypeService;
+import org.wr.neo4j.meta.model.AttributeBean;
+import org.wr.neo4j.meta.model.BaseBean;
+import org.wr.neo4j.meta.model.ObjectTypeBean;
 import org.wr.utils.collections.WrCollections;
 
 /**
@@ -126,6 +126,8 @@ public class AttributeServiceImpl implements AttributeService {
         node.setProperty(MetaDataConstants.ATTRIBUTE_IS_REQUIRED, bean.isRequired() ? 1 : 0);
         node.setProperty(MetaDataConstants.ATTRIBUTE_TYPE, bean.getType().toString());
         node.setProperty(MetaDataConstants.ATTRIBUTE_MAX_ENTRIES, bean.getMaxEntries());
+        node.setProperty(MetaDataConstants.ATTRIBUTE_PUBLIC_NAME, bean.getPublicName());
+        
     }
 
     protected Node create(AttributeBean bean) {
@@ -156,6 +158,7 @@ public class AttributeServiceImpl implements AttributeService {
         existBean.setType(bean.getType());
         existBean.setRequired(bean.isRequired());
         existBean.setMaxEntries(bean.getMaxEntries());
+        existBean.setPublicName(bean.getPublicName());
         return manager.getDbService().getNodeById(bean.getId());
     }
 }

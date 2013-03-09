@@ -1,4 +1,4 @@
-package org.wr.face.common.widgets.common.impl;
+package org.wr.face.common.widgets.common.impl.component;
 
 import org.neo4j.graphdb.Node;
 import org.wr.face.common.components.view.NestedTableRow;
@@ -12,7 +12,7 @@ public class ParameterObjectRowComponent extends NestedTableRow{
     
     private final AttributeBean attr;
     private final Node node;
-    private ParameterComponentFactory componentFactory = new ParameterComponentFactory();
+    private ParameterComponentFactory componentFactory;
 
     public ParameterObjectRowComponent(AttributeBean attr, Node node) {
         super(attr.getName());

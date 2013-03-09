@@ -33,8 +33,9 @@ public class PageFinder {
     public PageBean getCreatePage(HttpServletRequest request) {
         WebApplicationContext context = SpringContextParser.getSpringContext(request);
         String objectType = request.getParameter("objectType");
-        
+        String action = request.getParameter("action");
+        action = StringUtils.isEmpty(action) ? "create" : action;
         MetaCacheController cacheController = context.getBean(MetaCacheController.class);
-        return cacheController.getPageService().getCreatePage(objectType, null);
+        return cacheController.getPageService().getPage(action, objectType, null);
     }
 }

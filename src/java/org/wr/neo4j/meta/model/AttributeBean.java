@@ -14,6 +14,7 @@ public class AttributeBean extends BaseBean {
     private AttributeType type = AttributeType.TEXT;
     private int maxEntries = 1;
     private boolean required = false;
+    private String publicName;
     private List<ObjectTypeBean> objectTypes = new LinkedList<>();
     
     public AttributeBean(long id) {
@@ -48,5 +49,12 @@ public class AttributeBean extends BaseBean {
         return objectTypes;
     }
 
-    
+    public String getPublicName() {
+        return publicName;
+    }
+
+    public void setPublicName(String publicName) {
+        this.publicName = publicName;
+    }
+
 }

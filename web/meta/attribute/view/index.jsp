@@ -24,6 +24,7 @@
            <%
             out.print(new SimpleTableComponent()
                     .addChild(new TextWebComponent("Attribute Name", bean.getName()))
+                    .addChild(new TextWebComponent("Public Name", bean.getPublicName())) 
                     .addChild(new TextWebComponent("Type", bean.getType().toString()))
                     .addChild(new TextWebComponent("Is Required", bean.isRequired()?"Yes":"No"))
                     .addChild(new TextWebComponent("Order", String.valueOf(bean.getOrder())))
