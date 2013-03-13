@@ -1,10 +1,8 @@
 package org.wr.face.common.services.persistence;
 
-import java.util.LinkedList;
-import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.NotFoundException;
+import org.wr.face.common.components.edit.input.multiple.MultipleTextInput;
 import org.wr.neo4j.meta.attribute.AttributeType;
 import org.wr.neo4j.meta.model.AttributeBean;
 import org.wr.utils.WrArrays;
@@ -40,70 +38,24 @@ public class AttributePersistenceService {
         if (attr.getMaxEntries() < 2) {
             throw new IllegalArgumentException("property \"" + attr.getName() + "\" must be multiple!");
         }
-        String[] values = getValue(attr, getValue(node,attr.getName()), addedValues, removedValues);
-        if (attr.isRequired() && values.length == 0) {
+        String[] values = 
+                MultipleTextInput.mergeValues(
+                    MultipleTextInput.parseValues(node.getProperty(attr.getName())), 
+                    addedValues, 
+                    removedValues);
+                
+        if (attr.isRequired() && ( values == null || values.length == 0 )) {
             throw new NullPointerException("property \"" + attr.getName() + "\" must be filled!");
         }
-        if (!attr.isRequired() && values.length == 0) {
+        if (!attr.isRequired() && ( values == null || values.length == 0 )) {
             node.removeProperty(attr.getName());
             return;
         }
         if (AttributeType.NUMBER.equals(attr.getType())) {
-            node.setProperty(attr.getName(), toIntArray(values));
+            node.setProperty(attr.getName(), WrArrays.toIntArray(values));
             return;
         }
         node.setProperty(attr.getName(), values);
     }
 
-    public Object[] getValue(Node node, String propId) {
-        try{
-            Object value = node.getProperty(propId);
-            if(value instanceof int[]){
-                return WrArrays.toStringArray((int[])value);
-            }            
-            return (Object[])value;
-        } catch (NotFoundException e) {
-            return new Object[0];
-        }
-    }
-    
-    public int[] toIntArray(String[] value) {
-        int[] out = new int[value.length];
-        for(int i=0; i< value.length; i++) {
-            out[i] = Integer.valueOf(value[i]);
-        }
-        return out;
-    }
-    
-    public String[] getValue(AttributeBean attr, Object[] originalValue, String[] addedValues, String[] removedValues) {
-        List<String> values = new LinkedList<>();
-
-        for (Object value : originalValue) {
-            if (StringUtils.isEmpty(String.valueOf(value))){
-                continue;
-            }
-            if (!isRemoved(value, removedValues)) {
-                values.add(String.valueOf(value));
-            }
-        }
-        for (String addValue : addedValues) {
-            if (StringUtils.isEmpty(addValue)) {
-                continue;
-            }
-            values.add(addValue);
-        }
-
-        return values.toArray(new String[values.size()]);
-    }
-
-    
-    
-    private boolean isRemoved(Object value, String[] removedValues) {
-        for (String delValue : removedValues) {
-            if (String.valueOf(value).equals(delValue)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -1,4 +1,5 @@
 
+<%@page import="org.wr.face.common.components.edit.input.multiple.MultipleTextInput"%>
 <%@page import="org.wr.face.common.components.edit.input.SimpleListComponent"%>
 <%@page import="org.wr.face.common.components.edit.input.SingleTextComponent"%>
 <%@page import="org.wr.face.common.components.edit.HiddenField"%>
@@ -49,6 +50,8 @@
                  .addChild(new NestedTableRow("Type")
                           .addChild(new SimpleListComponent(AttributeType.values(),"type").setDeafult(bean.getType().toString()))
                  )
+                 .addChild(new NestedTableRow("Additional Parameters").
+                           addChild(new MultipleTextInput(bean.getAdditionalParameters(), "additionalParameters")))
                  ).addChild(new HiddenField("id", String.valueOf(bean.getId())))
                  .addChild(new HiddenField("parentId", parentId))
                  .addChild(new HiddenField("objectType", objectType))

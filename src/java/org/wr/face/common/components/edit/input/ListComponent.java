@@ -46,10 +46,14 @@ public class ListComponent extends InputComponent {
 
     @Override
     public String renderHtml() {
-        return "<div class=\"input-control select\"> "
+        return "<div class=\"input-control select\" "+putAttributes()+"> "
                 + "<select name=\"" + getId() + "\"> "
                 + renderOptions()
                 + "</select>"
                 + "</div>";
+    }
+    
+    protected String putAttributes(){
+        return "";
     }
 }

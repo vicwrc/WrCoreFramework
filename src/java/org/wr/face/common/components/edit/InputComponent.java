@@ -14,6 +14,7 @@ public abstract class InputComponent extends WebComponent{
     
     private final String id;
     private boolean disabled = false;
+    private boolean hidden = false;
 
     public InputComponent(String id) {
         this.id = id;
@@ -34,6 +35,18 @@ public abstract class InputComponent extends WebComponent{
     
     protected String getDisabled(){
         return disabled? " disabled=\"\"":"";
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+    
+    public String getHidden(){
+        return hidden ? " style=\"display: none;\" " : "";
     }
     
 }

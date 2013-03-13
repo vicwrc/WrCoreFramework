@@ -5,6 +5,7 @@
 package org.wr.face.common.components.edit.input.multiple;
 
 import org.wr.face.common.components.edit.input.SingleNumberComponent;
+import org.wr.utils.WrArrays;
 
 /**
  *

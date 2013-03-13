@@ -1,3 +1,5 @@
+<%@page import="org.wr.face.common.components.view.MultipleLine"%>
+<%@page import="org.wr.face.common.components.view.NestedTableRow"%>
 <%@page import="org.wr.face.common.components.view.SimpleTableComponent"%>
 <%@page import="org.wr.face.common.components.view.TextWebComponent"%>
 <%@page import="org.wr.neo4j.meta.model.AttributeBean"%>
@@ -29,7 +31,9 @@
                     .addChild(new TextWebComponent("Is Required", bean.isRequired()?"Yes":"No"))
                     .addChild(new TextWebComponent("Order", String.valueOf(bean.getOrder())))
                     .addChild(new TextWebComponent("MaxEntries", Integer.valueOf(bean.getMaxEntries()).toString()))
-                    .render()
+                    .addChild(new NestedTableRow("Additional Parameters")
+                        .addChild(new MultipleLine(bean.getAdditionalParameters() )))
+                    .render()                    
                     );
            
             

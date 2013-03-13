@@ -4,6 +4,7 @@ package org.wr.neo4j.meta.model;
 import java.util.LinkedList;
 import java.util.List;
 import org.wr.neo4j.meta.attribute.AttributeType;
+import org.wr.utils.WrArrays;
 
 /**
  *
@@ -15,6 +16,7 @@ public class AttributeBean extends BaseBean {
     private int maxEntries = 1;
     private boolean required = false;
     private String publicName;
+    private String[] additionalParameters = WrArrays.EMPTY_STRING_ARRAY;
     private List<ObjectTypeBean> objectTypes = new LinkedList<>();
     
     public AttributeBean(long id) {
@@ -57,4 +59,12 @@ public class AttributeBean extends BaseBean {
         this.publicName = publicName;
     }
 
+    public String[] getAdditionalParameters() {
+        return additionalParameters;
+    }
+
+    public void setAdditionalParameters(String[] additionalParameters) {
+        this.additionalParameters = additionalParameters;
+    }
+    
 }

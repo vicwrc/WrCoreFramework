@@ -23,16 +23,8 @@ public class MultipleNumberAttrComponent extends MultipleNumberInput{
         this.attr = attr;
         this.node = node;
         if(null != node){
-            this.setListValues(toStringArray((int[])node.getProperty(attr.getName())));
+            this.setListValuesAsObject(node.getProperty(attr.getName()));
         }
-    }
-    
-    public static String[] toStringArray(int[] value) {
-        String[] out = new String[value.length];
-        for(int i=0; i< value.length; i++) {
-            out[i] = String.valueOf(value[i]);
-        }
-        return out;
     }
     
 }

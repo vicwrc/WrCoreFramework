@@ -19,6 +19,8 @@ public class MetaDataConstants {
     public static final String ATTRIBUTE_IS_REQUIRED = "isRequired";
     public static final String ATTRIBUTE_GROUP = "Group";
     public static final String ATTRIBUTE_PUBLIC_NAME = "publicName";
+    public static final String ATTRIBUTE_REFERENCE_TO = "referenceTo";
+    public static final String ATTRIBUTE_LIST_VALUES = "listValues";
     
     public static final String WIDGET_URL = "url";
     

@@ -1,13 +1,12 @@
 
 package org.wr.face.common.widgets.common.impl;
 
-import org.wr.face.common.widgets.common.impl.component.ParameterComponentFactory;
-import org.wr.face.common.widgets.common.impl.component.ParameterObjectRowComponent;
 import org.neo4j.graphdb.Node;
 import org.wr.face.common.components.WebComponent;
 import org.wr.face.common.components.edit.HiddenField;
 import org.wr.face.common.components.view.SimpleTableComponent;
-import org.wr.face.common.widgets.common.impl.component.componentfactory.EditParameterComponentFactory;
+import org.wr.face.common.widgets.common.impl.component.ParameterComponentFactory;
+import org.wr.face.common.widgets.common.impl.component.ParameterObjectRowComponent;
 import org.wr.neo4j.meta.model.AttributeBean;
 import org.wr.neo4j.meta.model.ObjectTypeBean;
 import org.wr.neo4j.meta.model.attribute.ReferenceAttribute;

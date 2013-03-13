@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.StringUtils;
 import org.neo4j.graphdb.Node;
 import org.wr.neo4j.core.Neo4jDBManager;
 import org.wr.neo4j.core.Neo4jTransaction;
@@ -12,12 +13,15 @@ import org.wr.neo4j.core.operations.DeleteNodeOperation;
 import org.wr.neo4j.core.operations.RelationshipOperation;
 import org.wr.neo4j.meta.MetaDataConstants;
 import org.wr.neo4j.meta.MetaType;
+import org.wr.neo4j.meta.attribute.AttributeType;
 import org.wr.neo4j.meta.cache.services.AttributeService;
 import org.wr.neo4j.meta.cache.services.MetaCacheService;
 import org.wr.neo4j.meta.cache.services.ObjectTypeService;
 import org.wr.neo4j.meta.model.AttributeBean;
 import org.wr.neo4j.meta.model.BaseBean;
 import org.wr.neo4j.meta.model.ObjectTypeBean;
+import org.wr.neo4j.meta.model.attribute.ListAttribute;
+import org.wr.neo4j.meta.model.attribute.ReferenceAttribute;
 import org.wr.utils.collections.WrCollections;
 
 /**
@@ -126,8 +130,19 @@ public class AttributeServiceImpl implements AttributeService {
         node.setProperty(MetaDataConstants.ATTRIBUTE_IS_REQUIRED, bean.isRequired() ? 1 : 0);
         node.setProperty(MetaDataConstants.ATTRIBUTE_TYPE, bean.getType().toString());
         node.setProperty(MetaDataConstants.ATTRIBUTE_MAX_ENTRIES, bean.getMaxEntries());
-        node.setProperty(MetaDataConstants.ATTRIBUTE_PUBLIC_NAME, bean.getPublicName());
-        
+        if(StringUtils.isEmpty(bean.getPublicName())){
+            node.removeProperty(MetaDataConstants.ATTRIBUTE_PUBLIC_NAME);
+        }else {
+            node.setProperty(MetaDataConstants.ATTRIBUTE_PUBLIC_NAME, bean.getPublicName());
+        }
+        if(AttributeType.CHILD.equals(bean.getType()) || AttributeType.REFERENCE.equals(bean.getType())) {
+            ReferenceAttribute refAttr = (ReferenceAttribute)bean;
+            node.setProperty(MetaDataConstants.ATTRIBUTE_REFERENCE_TO, refAttr.getReferenceTo());
+        }
+        if (AttributeType.LIST.equals(bean.getType())) { 
+            ListAttribute listAttr = (ListAttribute)bean;
+            node.setProperty(MetaDataConstants.ATTRIBUTE_LIST_VALUES, listAttr.getValues());
+        }
     }
 
     protected Node create(AttributeBean bean) {
