@@ -56,9 +56,9 @@ public class FolderBuilder implements CommonBuilder<BaseBean> {
     protected long getOrder(Node node) {
         try {
             return (long) node.getProperty(MetaDataConstants.ALL_ORDER);
-        } catch (NotFoundException e) {
+        } catch (Exception e) {
             return node.getId();
-        }
+        } 
     }
 
     protected BaseBean create(Neo4jTransaction tx, BaseBean parent, Node node) {

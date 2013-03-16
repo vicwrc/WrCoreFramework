@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.wr.utils.WrArrays;
+import org.wr.utils.WrMath;
 import org.wr.utils.collections.WrCollections;
 import scala.actors.threadpool.Arrays;
 
@@ -22,7 +23,7 @@ public class MultipleTextInput extends MultipleInput {
 
     public MultipleTextInput(Object[] listValues, String id) {
         super(id);
-        setListValues(listValues);
+        setListValuesAsObject(listValues);
     }
 
     public void setListValuesAsObject(Object listValues) {
@@ -61,7 +62,7 @@ public class MultipleTextInput extends MultipleInput {
     public static String[] mergeValues(String[] originalValues, String[] added, String[] removed ) {
         List<String> values = new LinkedList<>();
         
-        List<String> removedValues = new LinkedList<>(Arrays.asList(removed));
+        List<String> removedValues = new LinkedList<>(Arrays.asList(WrMath.nvl(removed,WrArrays.EMPTY_STRING_ARRAY)));
        
 
         for (String value : originalValues) {
@@ -72,7 +73,7 @@ public class MultipleTextInput extends MultipleInput {
                 values.add(String.valueOf(value));
             }
         }
-        for (String addValue : added) {
+        for (String addValue : WrMath.nvl(added,WrArrays.EMPTY_STRING_ARRAY)) {
             if (StringUtils.isEmpty(addValue)) {
                 continue;
             }

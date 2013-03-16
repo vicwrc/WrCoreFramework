@@ -40,7 +40,7 @@ public class AttributePersistenceService {
         }
         String[] values = 
                 MultipleTextInput.mergeValues(
-                    MultipleTextInput.parseValues(node.getProperty(attr.getName())), 
+                    MultipleTextInput.parseValues(node.getProperty(attr.getName(), WrArrays.EMPTY_STRING_ARRAY)), 
                     addedValues, 
                     removedValues);
                 

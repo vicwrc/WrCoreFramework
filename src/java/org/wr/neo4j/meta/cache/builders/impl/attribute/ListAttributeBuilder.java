@@ -12,6 +12,7 @@ import org.wr.neo4j.meta.attribute.AttributeType;
 import org.wr.neo4j.meta.cache.builders.impl.AttributeBuilder;
 import org.wr.neo4j.meta.model.BaseBean;
 import org.wr.neo4j.meta.model.attribute.ListAttribute;
+import org.wr.utils.WrArrays;
 
 /**
  *
@@ -22,7 +23,7 @@ public class ListAttributeBuilder extends AttributeBuilder{
     public ListAttribute build(Neo4jTransaction tx, BaseBean parent, Node node) {
         ListAttribute bean = (ListAttribute)super.build(tx, parent, node);
         
-        bean.setValues((Object[])node.getProperty("values"));
+        bean.setValues((Object[])node.getProperty(MetaDataConstants.ATTRIBUTE_LIST_VALUES, WrArrays.EMPTY_OBJECT_ARRAY));
         
         return bean;
     }

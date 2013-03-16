@@ -5,6 +5,7 @@
 package org.wr.face.common.components.view;
 
 import org.wr.face.common.components.WebComponent;
+import org.wr.utils.WrArrays;
 
 /**
  *
@@ -16,6 +17,10 @@ public class MultipleLine extends WebComponent{
 
     public MultipleLine(String[] lines) {
         this.lines = lines;
+    }
+    
+    public MultipleLine(Object[] lines) {
+        this.lines = WrArrays.toStringArray(lines);
     }
     
     @Override

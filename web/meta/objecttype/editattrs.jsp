@@ -1,6 +1,6 @@
+<%@page import="org.wr.face.common.components.edit.input.SingleTextComponent"%>
 <%@page import="org.wr.face.common.components.edit.HiddenField"%>
 <%@page import="org.wr.face.common.components.edit.Html5InputType"%>
-<%@page import="org.wr.face.common.components.edit.SingleTextComponent"%>
 <%@page import="org.wr.face.common.components.view.NestedTableRow"%>
 <%@page import="org.wr.face.common.components.view.SimpleTableComponent"%>
 <%@page import="org.wr.face.common.components.edit.Form"%>

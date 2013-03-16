@@ -8,6 +8,7 @@ import org.wr.neo4j.meta.MetaType;
 import org.wr.neo4j.meta.attribute.AttributeType;
 import org.wr.neo4j.meta.model.AttributeBean;
 import org.wr.neo4j.meta.model.BaseBean;
+import org.wr.utils.WrArrays;
 
 
 /**
@@ -24,6 +25,7 @@ public class AttributeBuilder extends FolderBuilder{
         bean.setType(AttributeType.valueOf((String)node.getProperty(MetaDataConstants.ATTRIBUTE_TYPE)));
         bean.setRequired(1 == (int)node.getProperty(MetaDataConstants.ATTRIBUTE_IS_REQUIRED));
         bean.setPublicName(getPublicName(node));
+        bean.setAdditionalParameters((String[])node.getProperty(MetaDataConstants.ATTRIBUTE_ADDITIONAL_PARAMETERS,WrArrays.EMPTY_STRING_ARRAY));
         return bean;
     }
     

@@ -143,6 +143,11 @@ public class AttributeServiceImpl implements AttributeService {
             ListAttribute listAttr = (ListAttribute)bean;
             node.setProperty(MetaDataConstants.ATTRIBUTE_LIST_VALUES, listAttr.getValues());
         }
+        if(bean.getAdditionalParameters().length == 0) {
+            node.removeProperty(MetaDataConstants.ATTRIBUTE_ADDITIONAL_PARAMETERS);
+        } else {
+            node.setProperty(MetaDataConstants.ATTRIBUTE_ADDITIONAL_PARAMETERS, bean.getAdditionalParameters());
+        }
     }
 
     protected Node create(AttributeBean bean) {
@@ -168,12 +173,26 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     protected Node modify(AttributeBean bean, AttributeBean existBean) {
-        existBean.setName(bean.getName());
-        existBean.setOrder(bean.getOrder());
-        existBean.setType(bean.getType());
-        existBean.setRequired(bean.isRequired());
-        existBean.setMaxEntries(bean.getMaxEntries());
-        existBean.setPublicName(bean.getPublicName());
+        bean.setId(existBean.getId());
+        bean.setParent(existBean.getParent());
+        bean.getParent().getChildren().remove(existBean);
+        bean.getParent().getChildren().add(bean);
+        
+        bean.setChildren(existBean.getChildren());
+        for(BaseBean childBean : bean.getChildren()) {
+            childBean.setParent(bean);
+        }
+        
+        attributes.put(bean.getId(), bean);
+        
+        
+        bean.getObjectTypes().addAll(existBean.getObjectTypes());
+        for (ObjectTypeBean ot : bean.getObjectTypes()) {
+            ot.getCurrentAttributes().remove(existBean);
+            ot.getCurrentAttributes().add(bean);
+            ot.rebuildAttributesRecursive();
+        }
+        
         return manager.getDbService().getNodeById(bean.getId());
     }
 }

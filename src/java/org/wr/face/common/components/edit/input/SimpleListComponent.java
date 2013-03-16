@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.wr.face.common.components.edit.input;
 
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import org.wr.utils.collections.WrCollections;
 
@@ -15,14 +12,32 @@ import org.wr.utils.collections.WrCollections;
 public class SimpleListComponent extends ListComponent{
 
     public SimpleListComponent(Object[] listValues, String id) {
-        super(WrCollections.aggregate(listValues, new WrCollections.AggregateCondition<Object,Map<String,String>>(){
+        super(WrCollections.aggregate(listValues, new WrCollections.AggregateCondition<Object,List<Map.Entry<String, String>>>(){
 
+            
             @Override
-            public Map<String, String> aggregateItem(Object item, Map<String, String> currentResult) {
-                currentResult.put(item.toString(), item.toString());
+            public List<Map.Entry<String, String>> aggregateItem(final Object item, List<Map.Entry<String, String>> currentResult) {
+                currentResult.add(new Map.Entry<String, String>() {
+
+                   @Override
+                    public String getKey() {
+                        return item.toString();
+                    }
+
+                    @Override
+                    public String getValue() {
+                        return item.toString();
+                    }
+
+                    @Override
+                    public String setValue(String value) {
+                        throw new UnsupportedOperationException("Not supported yet.");
+                    }
+                });
                 return currentResult;
             }
-        }, new HashMap<String,String>()), id);
+        }, new LinkedList<Map.Entry<String, String>>()), id);
+        
     }
     
 }

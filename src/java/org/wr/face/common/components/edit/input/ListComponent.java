@@ -4,7 +4,9 @@
  */
 package org.wr.face.common.components.edit.input;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.wr.face.common.components.edit.InputComponent;
 
 
@@ -14,17 +16,21 @@ import org.wr.face.common.components.edit.InputComponent;
  */
 public class ListComponent extends InputComponent {
 
-    private final Map<String, String> listValues;
+    private List<Map.Entry<String, String>> listValues;
     private String deafult = null;
 
-    public ListComponent(Map<String, String> listValues, String id) {
+    public ListComponent(List<Map.Entry<String, String>> listValues, String id) {
         super(id);
         this.listValues = listValues;
         
     }
 
-    public Map<String, String> getListValues() {
+    public List<Map.Entry<String, String>> getListValues() {
         return listValues;
+    }
+
+    public void setListValues(List<Entry<String, String>> listValues) {
+        this.listValues = listValues;
     }
 
     public String getDeafult() {
@@ -38,7 +44,7 @@ public class ListComponent extends InputComponent {
 
     protected String renderOptions() {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> keyValue : listValues.entrySet()) {
+        for (Map.Entry<String, String> keyValue : listValues) {
             StringBuilder append = sb.append("<option value=\"").append(keyValue.getKey()).append("\" ").append(keyValue.getKey().equals(deafult)?" selected":"").append(">").append(keyValue.getValue()).append("</option>");
         }
         return sb.toString();
@@ -46,8 +52,8 @@ public class ListComponent extends InputComponent {
 
     @Override
     public String renderHtml() {
-        return "<div class=\"input-control select\" "+putAttributes()+"> "
-                + "<select name=\"" + getId() + "\"> "
+        return "<div class=\"input-control select\" > "
+                + "<select name=\"" + getId() + "\" "+putAttributes()+"> "
                 + renderOptions()
                 + "</select>"
                 + "</div>";
