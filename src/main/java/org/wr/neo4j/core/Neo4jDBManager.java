@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.wr.neo4j.core;
 
 import java.util.ArrayList;
@@ -26,22 +22,18 @@ public class Neo4jDBManager {
     /* system stuff */
     private boolean finishState = false;
 
-    public Neo4jDBManager(String dbName, String properties, DbStartStopHandler startStopHandler) {
-        this.dbName = dbName;
-        this.properties = properties;
+    public Neo4jDBManager(GraphDatabaseService dbService, DbStartStopHandler startStopHandler) {
+        this.dbService = dbService;
         this.startStopHandler = startStopHandler;
     }
 
-    public Neo4jDBManager(String dbName, String properties) {
-        this(dbName, properties, null);
+    public Neo4jDBManager(GraphDatabaseService dbService) {
+        this(dbService, null);
     }
 
     public void open() {
-        if (null == dbService) {
-            dbService = openDB(dbName, properties);
-            if (null != startStopHandler) {
-                startStopHandler.onStart(this);
-            }
+        if (null != startStopHandler) {
+            startStopHandler.onStart(this);
         }
     }
 

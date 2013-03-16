@@ -16,11 +16,30 @@
     
     
     <bean id="dbManager" class="org.wr.neo4j.core.Neo4jDBManager" init-method="open" destroy-method="close">
-        <constructor-arg index="0" value="neo4jdb" />
-        <constructor-arg index="1" value="neo4j.properties" />
-        <constructor-arg index="2" ref="dbStartStopHandler" />
+        <constructor-arg index="0" ref="restGraphDatabaseService" />
+        <constructor-arg index="1" ref="dbStartStopHandler" />
     </bean>
+    
+    <!-- embedded-->
+    
+    <!--bean id="graphDatabaseFactory" class="org.neo4j.graphdb.factory.GraphDatabaseFactory"/>
+    <bean id="graphDatabaseBuilderStep1" factory-bean="graphDatabaseFactory" factory-method="newEmbeddedDatabaseBuilder">
+        <constructor-arg index="0" value="neo4jdb"/>
+    </bean>
+    <bean id="graphDatabaseBuilderStep2" factory-bean="graphDatabaseBuilderStep1" factory-method="loadPropertiesFromFile">
+        <constructor-arg index="0" value="neo4j.properties"/>
+    </bean>
+    <bean id="graphDatabaseService" factory-bean="graphDatabaseBuilderStep2" factory-method="newGraphDatabase"/-->
 
+    <!-- REST neo4j client -->
+    <bean id="restGraphDatabaseService" class="org.springframework.data.neo4j.rest.SpringRestGraphDatabase">
+        <constructor-arg index="0" value="http://localhost:7474/db/data"/>
+        <constructor-arg index="1" value="username"/>
+        <constructor-arg index="2" value="password"/>
+    </bean>
+    
+    <!--  core services -->
+    
     <bean id="transactionExecutor" class="org.wr.neo4j.core.Neo4jTransactionExecutor">
         <constructor-arg index="0" ref="dbManager"/>
     </bean>
