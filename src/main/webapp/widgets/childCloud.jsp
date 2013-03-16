@@ -6,7 +6,7 @@
 <%@page import="java.util.List"%>
 <%@page import="org.neo4j.graphdb.Node"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
-<%@page import="org.wr.face.request.SpringContextParser"%>
+<%@page import="org.wr.face.SpringContextParser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%

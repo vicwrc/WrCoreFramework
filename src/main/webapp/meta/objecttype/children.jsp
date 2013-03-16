@@ -5,7 +5,7 @@
 <%@page import="org.wr.face.common.components.view.TextWebComponent"%>
 <%@page import="org.wr.face.common.components.view.SimpleTableComponent"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="org.wr.face.request.SpringContextParser"%>
+<%@page import="org.wr.face.SpringContextParser"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%

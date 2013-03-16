@@ -17,7 +17,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.web.context.WebApplicationContext;
 import org.wr.face.common.services.finders.NodeFinder;
 import org.wr.face.common.services.finders.PageFinder;
-import org.wr.face.request.SpringContextParser;
+import org.wr.face.SpringContextParser;
 import org.wr.neo4j.meta.page.PageHandler;
 import org.wr.neo4j.meta.model.page.RedirectPageBean;
 

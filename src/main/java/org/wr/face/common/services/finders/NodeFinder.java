@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.neo4j.graphdb.Node;
 import org.springframework.web.context.WebApplicationContext;
 import org.wr.face.IdParser;
-import org.wr.face.request.SpringContextParser;
+import org.wr.face.SpringContextParser;
 import org.wr.neo4j.core.Neo4jDBManager;
 
 /**

@@ -2,7 +2,7 @@ package org.wr.face.common;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.WebApplicationContext;
-import org.wr.face.request.SpringContextParser;
+import org.wr.face.SpringContextParser;
 
 /**
  *

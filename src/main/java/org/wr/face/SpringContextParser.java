@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.wr.face.request;
+package org.wr.face;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.WebApplicationContext;

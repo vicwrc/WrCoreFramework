@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.neo4j.graphdb.Node;
 import org.springframework.web.context.WebApplicationContext;
-import org.wr.face.request.SpringContextParser;
+import org.wr.face.SpringContextParser;
 import org.wr.neo4j.meta.cache.MetaCacheController;
 import org.wr.neo4j.meta.model.PageBean;
 

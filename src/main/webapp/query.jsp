@@ -9,10 +9,10 @@
 <%@page import="java.util.Map.Entry"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.io.IOException"%>
-<%@page import="org.apache.commons.lang3.StringUtils"%>
+<%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="org.neo4j.cypher.javacompat.ExecutionEngine"%>
 <%@page import="org.neo4j.cypher.javacompat.ExecutionResult"%>
-<%@page import="org.wr.face.request.SpringContextParser"%>
+<%@page import="org.wr.face.SpringContextParser"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

@@ -1,7 +1,7 @@
 <%@page import="org.wr.face.common.components.view.navigation.NodePath"%>
 <%@page import="org.wr.face.common.services.finders.NodePathFinder"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
-<%@page import="org.wr.face.request.SpringContextParser"%>
+<%@page import="org.wr.face.SpringContextParser"%>
 <%@page import="org.wr.face.IdParser"%>
 <%@page import="org.neo4j.graphdb.Node"%>
 <%@page import="org.wr.neo4j.core.Neo4jDBManager"%>

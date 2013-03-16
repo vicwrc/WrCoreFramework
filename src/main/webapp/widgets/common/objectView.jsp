@@ -6,7 +6,7 @@
 <%@page import="org.wr.neo4j.meta.model.ObjectTypeBean"%>
 <%@page import="org.wr.neo4j.meta.cache.services.ObjectTypeService"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="org.wr.face.request.SpringContextParser"%>
+<%@page import="org.wr.face.SpringContextParser"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

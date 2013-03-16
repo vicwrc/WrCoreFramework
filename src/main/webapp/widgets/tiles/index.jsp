@@ -7,7 +7,7 @@
 <%@page import="org.wr.neo4j.meta.cache.MetaCacheController"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
-<%@page import="org.wr.face.request.SpringContextParser"%>
+<%@page import="org.wr.face.SpringContextParser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
          WebApplicationContext context = SpringContextParser.getSpringContext(request);
