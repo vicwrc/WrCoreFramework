@@ -53,7 +53,7 @@ public class Neo4jDBManager {
             }
             finishState = true;
             finishAllTransactions();
-            registerShutdownHook(dbService);
+            //registerShutdownHook(dbService);
             dbService = null;
         }
     }
