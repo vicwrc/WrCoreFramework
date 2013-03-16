@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.wr.neo4j.core.dbhandlers.dbinstance.DbStartStopHandler;
 
 /**
@@ -53,7 +52,6 @@ public class Neo4jDBManager {
             }
             finishState = true;
             finishAllTransactions();
-            //registerShutdownHook(dbService);
             dbService = null;
         }
     }
@@ -62,25 +60,6 @@ public class Neo4jDBManager {
         for (Transaction transaction : transactions) {
             transaction.finish();
         }
-    }
-
-    private static void registerShutdownHook(final GraphDatabaseService graphDb) {
-        // Registers a shutdown hook for the Neo4j instance so that it
-        // shuts down nicely when the VM exits (even if you "Ctrl-C" the
-        // running example before it's completed)
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                System.out.println("Neo4j Database was sucessfully shutted down.");
-                graphDb.shutdown();
-            }
-        });
-    }
-
-    protected GraphDatabaseService openDB(String dbName, String properties) {
-        return new GraphDatabaseFactory().
-                newEmbeddedDatabaseBuilder(dbName).
-                loadPropertiesFromFile(properties).newGraphDatabase();
     }
 
     public List<Neo4jTransaction> getTransactions() {
